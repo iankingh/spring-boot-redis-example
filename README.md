@@ -1,4 +1,4 @@
-# docker-compose-spring-boot-redis
+# spring-boot-redis-example
 
 以 Docker Compose 啟動外部 Tomcat、Spring Boot WAR 與 Redis 的示範專案。
 應用提供 Redis 計數器及簡單的字串讀寫 API。
