@@ -8,8 +8,8 @@
 - Java 17（Spring Boot 4.1.1 的最低需求；`pom.xml` 與 CI 一致）
 - Spring Boot `4.1.1`（目前穩定版；版本及 Java 基線依 [官方系統需求](https://docs.spring.io/spring-boot/system-requirements.html) 與 [Maven Central 發行中繼資料](https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-starter-parent/maven-metadata.xml)）
 - Maven Wrapper `3.9.16`
-- Tomcat `11.0`（與 Spring Boot 4 所需 Servlet 6.1 相容；Tomcat 官方支援版本表：[Which Version?](https://tomcat.apache.org/whichversion.html)）
-- Redis `7-alpine`
+- Tomcat `11.0.26-jdk17-temurin`（與 Spring Boot 4 所需 Servlet 6.1 相容；Tomcat 官方支援版本表：[Which Version?](https://tomcat.apache.org/whichversion.html)）
+- Redis `7.4.11-alpine`（固定 Redis 7 的穩定 patch 版本）
 
 ## 專案結構
 
@@ -106,6 +106,9 @@ spring-boot-redis/target/site/jacoco/index.html
 `test.sh` 尊重明確指定的 `JAVA_HOME`；只有未指定時才在 macOS 嘗試尋找 JDK 17，
 其他系統使用系統 Java。可用 `JAVA_HOME=/path/to/jdk25 ./test.sh ...` 驗證 Java 25，
 不會被腳本悄悄換回 JDK 17。
+
+Redis Lettuce pool 在取得連線時最多等待 5 秒，避免 Redis 壅塞時請求無限期卡住；
+`SpringBootRedisApplicationTests` 會驗證此上限設定。
 
 ### 真實 Redis 與 Compose gate
 
